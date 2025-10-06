@@ -1,6 +1,8 @@
 
 
 def opcion_2_registrar_gasto(grupo):
+    if not grupo.personas:
+        return print("No puede registrarse gastos si no hay un grupo definido. Realice esto en la opcion 1 del menu")
     while True:
        while True:
         print("\n== Opción 2: Registrar gasto ==")

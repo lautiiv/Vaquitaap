@@ -20,6 +20,8 @@ class Grupo():
     def agregar_persona(self,nombre):
         integrante_del_grupo = Persona(nombre)
         self.personas.append(integrante_del_grupo)
+        return True, print("Persona agregada.")
+
         
         
     def listar_personas(self):
@@ -112,6 +114,8 @@ class Grupo():
             elif saldo < 0:
                deudores.append((persona, -saldo))
                
+               
+               
         print("\nAcreedores:", [(persona.nombre, m) for persona, m in acreedores])
         print("Deudores  :", [(persona.nombre, m) for persona, m in deudores])
         
@@ -122,19 +126,19 @@ class Grupo():
          deudor, deuda = deudores[i]
         acreedor, credito = acreedores[j]
 
-        monto = min(deuda, credito)
-        print(f"{deudor.nombre} debe pagarle ${monto:.2f} a {acreedor.nombre}")
+        monto = round(min(deuda, credito), 2)
+        if monto > 0.01:
+            print(f"{deudor.nombre} debe pagarle ${monto:.2f} a {acreedor.nombre}")
 
-        deuda -= monto
-        credito -= monto
+        deuda = round(deuda - monto, 2)
+        credito = round(credito - monto, 2)
 
-        if deuda == 0:
-         i += 1
-         
+        if deuda <= 0.01:
+            i += 1
         else:
             deudores[i] = (deudor, deuda)
 
-        if credito == 0:
-             j += 1
+        if credito <= 0.01:
+            j += 1
         else:
-             acreedores[j] = (acreedor, credito)         
+            acreedores[j] = (acreedor, credito)
